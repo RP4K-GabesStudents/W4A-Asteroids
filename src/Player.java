@@ -9,6 +9,6 @@ public class Player extends VectorSprite
 
     @Override
     MeshComponent GenerateMesh() {
-        return new MeshComponent(StaticUtilties.defaultShipShape, Color.pink);
+        return new MeshComponent(StaticUtilties.defaultShipShape, Color.green);
     }
 }
