@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 
 public class Game extends JFrame implements KeyListener
 {
-    public static final int WIDTH = 1920, HEIGHT = 1080;
+    public static final int WIDTH = 640, HEIGHT = 420;
     Window window;
 
     Player player;
@@ -23,7 +23,7 @@ public class Game extends JFrame implements KeyListener
         add(window,null);
         pack();
         addKeyListener(this);
-        player = new Player(WIDTH/2, HEIGHT/2, 3, 5);
+        player = new Player(WIDTH/2, HEIGHT/2, 0.1, 5);
     }
 
     @Override
@@ -34,38 +34,26 @@ public class Game extends JFrame implements KeyListener
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_D){
-            player.xspeed = player.speed;
+            player.rotationSpeed = player.angularVelocity;
         }
 
         if(e.getKeyCode() == KeyEvent.VK_A){
-            player.xspeed = -player.speed;
+            player.rotationSpeed = -player.angularVelocity;
         }
 
         if(e.getKeyCode() == KeyEvent.VK_W){
-            player.yspeed = -player.speed;
+            player.Accelerate();
         }
 
         if(e.getKeyCode() == KeyEvent.VK_S){
-            player.yspeed = player.speed;
+            player.Decelerate();
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_D){
-            player.xspeed =0;
-        }
-
-        if(e.getKeyCode() == KeyEvent.VK_A){
-            player.xspeed = 0;
-        }
-
-        if(e.getKeyCode() == KeyEvent.VK_W){
-            player.yspeed = 0;
-        }
-
-        if(e.getKeyCode() == KeyEvent.VK_S){
-            player.yspeed = 0;
+        if(e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_A){
+            player.rotationSpeed = 0;
         }
     }
 

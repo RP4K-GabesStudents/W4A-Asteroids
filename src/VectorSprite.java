@@ -6,12 +6,17 @@ public abstract class VectorSprite
     double   yspeed;
     double   speed = 5;
 
+    double angle;
+
     double x;
     double y;
 
     double acceleration;
 
     double deceleration;
+
+    double rotationSpeed;
+    double angularVelocity = 0.1; // 3 Degrees TODO: Have a multiplier variable that's modified in key pressed, and convert to radians in constructor
 
     MeshComponent meshComponent;
 
@@ -31,10 +36,13 @@ public abstract class VectorSprite
     {
         x += xspeed;
         y += yspeed;
+        angle += rotationSpeed;
     }
 
     void update(Graphics g)
     {
+        meshComponent.HandleMatrix(x,y,angle);
+
         //Render
         meshComponent.render(g);
 
@@ -42,5 +50,17 @@ public abstract class VectorSprite
 
         //Move
         move();
+    }
+
+    void Accelerate()
+    {
+        xspeed += Math.cos(angle) * acceleration;
+        yspeed += Math.sin(angle) * acceleration;
+    }
+
+    void Decelerate()
+    {
+        xspeed /= deceleration;
+        yspeed /= deceleration;
     }
 }

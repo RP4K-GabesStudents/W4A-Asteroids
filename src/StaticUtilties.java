@@ -4,6 +4,6 @@ public class StaticUtilties
            {     //X,Y
                 {  15,  0 }, //Point 1
                 { -10,  10}, // Point 2
-                { -15, -10}, // Point 3
+                { -10, -10}, // Point 3
            };
 }
