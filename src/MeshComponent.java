@@ -36,7 +36,6 @@ public class MeshComponent
     {
         polygon.invalidate();
 
-        angle = Math.toRadians(angle);
         for (int i = 0; i < start.npoints; i++) {
             //TODO: Issue was cosX - sinY, sinX + cosY
             polygon.xpoints[i] = (int)  ((Math.cos(angle) * start.xpoints[i] - Math.sin(angle) * start.ypoints[i]) + x);

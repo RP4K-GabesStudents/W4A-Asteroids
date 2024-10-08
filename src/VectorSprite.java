@@ -26,7 +26,7 @@ public abstract class VectorSprite
         this.y=y;
         this.acceleration = acceleration;
         this.deceleration = deceleration;
-
+        angularVelocity = Math.toRadians(angularVelocity);
         meshComponent = GenerateMesh();
     }
 
