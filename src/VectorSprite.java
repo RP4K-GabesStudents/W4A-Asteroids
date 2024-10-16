@@ -11,21 +11,19 @@ public abstract class VectorSprite
     double x;
     double y;
 
-    double acceleration;
-
-    double deceleration;
+    float radius = 15;
 
     double rotationSpeed;
-    double angularVelocity = 0.1; // 3 Degrees TODO: Have a multiplier variable that's modified in key pressed, and convert to radians in constructor
-
+    double angularVelocity = 90;
+    double maxSpeed = 250;
+    double baseDrag = 0.98; //0.98% of speed
     MeshComponent meshComponent;
 
-    public VectorSprite(double x, double y, double acceleration, double deceleration)
+    public VectorSprite(double x, double y)
     {
         this.x = x;
-        this.y=y;
-        this.acceleration = acceleration;
-        this.deceleration = deceleration;
+        this.y = y;
+
         angularVelocity = Math.toRadians(angularVelocity);
         meshComponent = GenerateMesh();
     }
@@ -34,9 +32,25 @@ public abstract class VectorSprite
 
     void move()
     {
-        x += xspeed;
-        y += yspeed;
-        angle += rotationSpeed;
+        double magnitude = Math.sqrt(xspeed * xspeed + yspeed * yspeed);
+
+        xspeed -= xspeed * baseDrag * Game.deltaTime;
+        yspeed -= yspeed * baseDrag * Game.deltaTime;
+
+        //If we're moving too fast
+        if(magnitude > maxSpeed)
+        {
+            //Vector Normalization, Dividing a vector, by it's length gives a unit vector (size of 1)
+            xspeed = xspeed / magnitude * maxSpeed;
+            yspeed = yspeed / magnitude * maxSpeed;
+        }
+
+        x += xspeed * Game.deltaTime;
+        y += yspeed * Game.deltaTime;
+
+        angle += rotationSpeed * Game.deltaTime;
+
+        screenWrap();
     }
 
     void update(Graphics g)
@@ -52,15 +66,23 @@ public abstract class VectorSprite
         move();
     }
 
-    void Accelerate()
+    void screenWrap()
     {
-        xspeed += Math.cos(angle) * acceleration;
-        yspeed += Math.sin(angle) * acceleration;
-    }
-
-    void Decelerate()
-    {
-        xspeed /= deceleration;
-        yspeed /= deceleration;
+        if(y > Game.HEIGHT + radius && yspeed > 0)
+        {
+            y =  - radius;
+        }
+        if(x > Game.WIDTH + radius && xspeed > 0)
+        {
+            x =  - radius;
+        }
+        if(y < - radius && yspeed < 0)
+        {
+            y = Game.HEIGHT + radius;
+        }
+        if(x < -radius && xspeed < 0)
+        {
+            x = Game.WIDTH + radius;
+        }
     }
 }

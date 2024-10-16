@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+
 public class Game extends JFrame implements KeyListener
 {
     public static final int WIDTH = 640, HEIGHT = 420;
@@ -10,6 +11,8 @@ public class Game extends JFrame implements KeyListener
 
     Player player;
 
+    private static long previousTime;
+    public static double deltaTime;
 
 
     public Game()
@@ -23,7 +26,9 @@ public class Game extends JFrame implements KeyListener
         add(window,null);
         pack();
         addKeyListener(this);
-        player = new Player(WIDTH/2, HEIGHT/2, 0.1, 5);
+        player = new Player(WIDTH/2, HEIGHT/2, 250, 9.5);
+
+
     }
 
     @Override
@@ -42,11 +47,11 @@ public class Game extends JFrame implements KeyListener
         }
 
         if(e.getKeyCode() == KeyEvent.VK_W){
-            player.Accelerate();
+            player.wantsToAccelerate= true;
         }
 
         if(e.getKeyCode() == KeyEvent.VK_S){
-            player.Decelerate();
+            player.wantsToDecelerate = true;
         }
     }
 
@@ -55,10 +60,23 @@ public class Game extends JFrame implements KeyListener
         if(e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_A){
             player.rotationSpeed = 0;
         }
+
+        if(e.getKeyCode() == KeyEvent.VK_W){
+            player.wantsToAccelerate= false;
+        }
+
+        if(e.getKeyCode() == KeyEvent.VK_S){
+            player.wantsToDecelerate = false;
+        }
+
     }
 
     public void updateWindow(Graphics g)
     {
         player.update(g);
+
+        long currentTime = System.currentTimeMillis();
+        deltaTime = (currentTime - previousTime)/1000.0;
+        previousTime = currentTime;
     }
 }
