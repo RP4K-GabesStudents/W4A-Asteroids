@@ -42,6 +42,13 @@ public class Player extends VectorSprite
         if(wantsToAccelerate) Accelerate();
         if(wantsToDecelerate) Decelerate();
 
-        //System.out.println("Pos " + x + ", " + y);
+
+        Slowdown();
+    }
+
+
+    void Slowdown(){
+        xspeed -= xspeed * baseDrag * Game.deltaTime;
+        yspeed -= yspeed * baseDrag * Game.deltaTime;
     }
 }

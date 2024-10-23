@@ -34,8 +34,7 @@ public abstract class VectorSprite
     {
         double magnitude = Math.sqrt(xspeed * xspeed + yspeed * yspeed);
 
-        xspeed -= xspeed * baseDrag * Game.deltaTime;
-        yspeed -= yspeed * baseDrag * Game.deltaTime;
+
 
         //If we're moving too fast
         if(magnitude > maxSpeed)
@@ -84,5 +83,24 @@ public abstract class VectorSprite
         {
             x = Game.WIDTH + radius;
         }
+    }
+
+    boolean collision(VectorSprite other){
+        for(int i = 0; i < meshComponent.polygon.npoints; i++ )
+        {
+            if(other.meshComponent.polygon.contains(meshComponent.polygon.xpoints[i], meshComponent.polygon.ypoints[i]))
+            {
+                return true;
+            }
+        }
+
+        for(int i = 0; i < other.meshComponent.polygon.npoints; i++ )
+        {
+            if(meshComponent.polygon.contains(other.meshComponent.polygon.xpoints[i], other.meshComponent.polygon.ypoints[i]))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
