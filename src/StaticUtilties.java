@@ -7,6 +7,14 @@ public class StaticUtilties
                 { -10, -10}, // Point 3
            };
 
+    public static final int [][] defaultProjectileShape =
+            {     //X,Y
+                    { 2,  2 }, //Point 1
+                    { -2,  2}, // Point 2
+                    { -2, -2}, // Point 3
+                    { 2, -2}, // Point 4
+            };
+
     public static int[][][] defaultAsteroidShape =
             {
                     // Asteroid 1 - 5 vertices

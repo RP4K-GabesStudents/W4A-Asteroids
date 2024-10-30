@@ -22,6 +22,7 @@ public class Game extends JFrame implements KeyListener
     public static double deltaTime;
 
     ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
+    static ArrayList<Projectile> projectiles = new ArrayList<>();
 
     EGameState currentGameState = EGameState.MainMenu;
 
@@ -69,6 +70,12 @@ public class Game extends JFrame implements KeyListener
         if(e.getKeyCode() == KeyEvent.VK_S){
             player.wantsToDecelerate = true;
         }
+
+        if(e.getKeyCode() == KeyEvent.VK_SPACE)
+        {
+            player.Shoot();
+        }
+
     }
 
     @Override
@@ -121,6 +128,13 @@ public class Game extends JFrame implements KeyListener
                 currentGameState = EGameState.EndScreen;
             }
         }
+
+        for(int i = projectiles.size() -1; i >=0; --i)
+        {
+            Projectile current = projectiles.get(i);
+            current.update(g);
+        }
+
     }
 
     void UpdateMainMenu(Graphics g)
@@ -138,6 +152,8 @@ public class Game extends JFrame implements KeyListener
         player = new Player(WIDTH/2, HEIGHT/2, 250, 9.5);
 
         asteroids.clear();
+
+        projectiles.clear();
 
         for(int i = 0; i < 5; i++) {
             asteroids.add(new Asteroid());

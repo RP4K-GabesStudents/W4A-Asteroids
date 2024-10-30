@@ -51,4 +51,8 @@ public class Player extends VectorSprite
         xspeed -= xspeed * baseDrag * Game.deltaTime;
         yspeed -= yspeed * baseDrag * Game.deltaTime;
     }
+
+    public void Shoot() {
+        Game.projectiles.add(new Projectile(x,y,15, angle));
+    }
 }
