@@ -1,3 +1,5 @@
+package Core;
+
 public class StaticUtilties
 {
     public static final int [][] defaultShipShape =

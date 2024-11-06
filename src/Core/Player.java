@@ -1,3 +1,7 @@
+package Core;
+
+import Weapons.Projectile;
+
 import java.awt.*;
 
 public class Player extends VectorSprite
@@ -18,7 +22,7 @@ public class Player extends VectorSprite
     }
 
     @Override
-    MeshComponent GenerateMesh() {
+    protected MeshComponent GenerateMesh() {
         return new MeshComponent(StaticUtilties.defaultShipShape, Color.green, scale);
     }
 

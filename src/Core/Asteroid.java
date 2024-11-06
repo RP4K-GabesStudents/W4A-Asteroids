@@ -1,3 +1,5 @@
+package Core;
+
 import java.awt.*;
 import java.util.Random;
 
@@ -35,25 +37,26 @@ public class Asteroid extends VectorSprite {
     {
         super(x,y,scale);
 
-        xspeed = rng.nextFloat(-1,1);
-        yspeed = rng.nextFloat(-1,1);
+        speed = 100;
+        xspeed = rng.nextFloat(-1,1) * speed;
+        yspeed = rng.nextFloat(-1,1) * speed;
 
     }
 
 
     @Override
-    MeshComponent GenerateMesh() {
+    protected MeshComponent GenerateMesh() {
         return new MeshComponent(StaticUtilties.defaultAsteroidShape[rng.nextInt(StaticUtilties.defaultAsteroidShape.length)], Color.RED, scale);
     }
 
 
     public void Break()
     {
-        if(scale <= 0.2f) return;
+        if(scale <= 0.4f) return;
 
-        int num = rng.nextInt(2,4);
+        int num = rng.nextInt(2,5);
         for(int i = 0; i < num; ++i) {
-            Game.asteroids.add(new Asteroid(x, y, rng.nextFloat(scale/num/2, scale/num)));
+            Game.asteroids.add(new Asteroid(x, y, Math.max(rng.nextFloat(scale/num/2, scale/num), 0.3f)));
         }
     }
 }

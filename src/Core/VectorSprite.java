@@ -1,25 +1,27 @@
+package Core;
+
 import java.awt.*;
 
 public abstract class VectorSprite
 {
-    double   xspeed;
-    double   yspeed;
-    double   speed = 5;
+    protected double   xspeed;
+    protected double   yspeed;
+    protected  double   speed = 5;
 
-    double angle;
+    protected double angle;
 
-    double x;
-    double y;
+    protected double x;
+    protected double y;
 
-    float radius = 15;
+    protected float radius = 15;
 
-    double rotationSpeed;
-    double angularVelocity = 90;
-    double maxSpeed = 250;
-    double baseDrag = 0.98; //0.98% of speed
-    MeshComponent meshComponent;
+    protected double rotationSpeed;
+    protected double angularVelocity = 90;
+    protected double maxSpeed = 250;
+    protected double baseDrag = 0.98; //0.98% of speed
+    protected MeshComponent meshComponent;
 
-    float scale;
+    protected float scale;
 
     public VectorSprite(double x, double y, float scale)
     {
@@ -32,7 +34,7 @@ public abstract class VectorSprite
         meshComponent = GenerateMesh();
     }
 
-    abstract MeshComponent GenerateMesh();
+    protected abstract MeshComponent GenerateMesh();
 
     void move()
     {
@@ -56,7 +58,7 @@ public abstract class VectorSprite
         screenWrap();
     }
 
-    void update(Graphics g)
+    protected void update(Graphics g)
     {
         meshComponent.HandleMatrix(x,y,angle);
 
@@ -89,7 +91,7 @@ public abstract class VectorSprite
         }
     }
 
-    boolean collision(VectorSprite other){
+    public boolean collision(VectorSprite other){
         for(int i = 0; i < meshComponent.polygon.npoints; i++ )
         {
             if(other.meshComponent.polygon.contains(meshComponent.polygon.xpoints[i], meshComponent.polygon.ypoints[i]))

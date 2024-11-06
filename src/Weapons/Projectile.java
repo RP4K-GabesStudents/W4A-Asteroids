@@ -1,3 +1,9 @@
+package Weapons;
+
+import Core.MeshComponent;
+import Core.StaticUtilties;
+import Core.VectorSprite;
+
 import java.awt.*;
 
 public class Projectile extends VectorSprite
@@ -19,7 +25,7 @@ public class Projectile extends VectorSprite
     }
 
     @Override
-    MeshComponent GenerateMesh() {
+    protected MeshComponent GenerateMesh() {
         return new MeshComponent(StaticUtilties.defaultProjectileShape, Color.blue, scale);
     }
 
