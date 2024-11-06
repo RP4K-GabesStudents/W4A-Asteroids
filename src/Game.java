@@ -21,7 +21,7 @@ public class Game extends JFrame implements KeyListener
     private static long previousTime;
     public static double deltaTime;
 
-    ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
+    static ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
     static ArrayList<Projectile> projectiles = new ArrayList<>();
 
     EGameState currentGameState = EGameState.MainMenu;
@@ -138,6 +138,7 @@ public class Game extends JFrame implements KeyListener
             {
                 if(current.collision(asteroids.get(j)))
                 {
+                    asteroids.get(j).Break();
                     asteroids.remove(j);
                     projectiles.remove(i);
                     break;
@@ -159,14 +160,15 @@ public class Game extends JFrame implements KeyListener
 
     void reset()
     {
-        player = new Player(WIDTH/2, HEIGHT/2, 250, 9.5);
+        player = new Player(WIDTH/2, HEIGHT/2, 1,250, 9.5);
 
         asteroids.clear();
 
         projectiles.clear();
 
         for(int i = 0; i < 5; i++) {
-            asteroids.add(new Asteroid());
+            //Min and max starting sizes.
+            asteroids.add(new Asteroid(Asteroid.rng.nextFloat(1,2)));
         }
 
         currentGameState = EGameState.MainMenu;

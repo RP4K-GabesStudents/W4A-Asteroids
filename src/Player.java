@@ -11,15 +11,15 @@ public class Player extends VectorSprite
 
     //TODO: Homework - make the character shoot projectiles
 
-    public Player(double x, double y, double acceleration, double deceleration) {
-        super(x, y);
+    public Player(double x, double y, float scale, double acceleration, double deceleration) {
+        super(x, y, scale);
         this.acceleration = acceleration;
         this.deceleration = deceleration;
     }
 
     @Override
     MeshComponent GenerateMesh() {
-        return new MeshComponent(StaticUtilties.defaultShipShape, Color.green, 1);
+        return new MeshComponent(StaticUtilties.defaultShipShape, Color.green, scale);
     }
 
     void Accelerate()
@@ -53,6 +53,6 @@ public class Player extends VectorSprite
     }
 
     public void Shoot() {
-        Game.projectiles.add(new Projectile(x,y,15, angle));
+        Game.projectiles.add(new Projectile(x,y,15, angle, 0.1f));
     }
 }

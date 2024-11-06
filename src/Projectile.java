@@ -5,8 +5,8 @@ public class Projectile extends VectorSprite
 
     final float SPEED = 700;
 
-    public Projectile(double x, double y, double offset,  double angle) {
-        super(x, y);
+    public Projectile(double x, double y, double offset,  double angle, float scale) {
+        super(x, y, scale);
 
         double cos = Math.cos(angle);
         double sin = Math.sin(angle);
@@ -20,7 +20,7 @@ public class Projectile extends VectorSprite
 
     @Override
     MeshComponent GenerateMesh() {
-        return new MeshComponent(StaticUtilties.defaultProjectileShape, Color.blue, 1);
+        return new MeshComponent(StaticUtilties.defaultProjectileShape, Color.blue, scale);
     }
 
 
