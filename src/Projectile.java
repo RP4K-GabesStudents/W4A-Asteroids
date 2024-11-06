@@ -15,12 +15,12 @@ public class Projectile extends VectorSprite
         this.y += sin * offset;
 
         xspeed = cos * SPEED;
-        yspeed = Math.sin(angle) * SPEED;
+        yspeed = sin * SPEED;
     }
 
     @Override
     MeshComponent GenerateMesh() {
-        return new MeshComponent(StaticUtilties.defaultProjectileShape, Color.blue);
+        return new MeshComponent(StaticUtilties.defaultProjectileShape, Color.blue, 1);
     }
 
 

@@ -8,12 +8,12 @@ public class StaticUtilties
            };
 
     public static final int [][] defaultProjectileShape =
-            {     //X,Y
-                    { 2,  2 }, //Point 1
-                    { -2,  2}, // Point 2
-                    { -2, -2}, // Point 3
-                    { 2, -2}, // Point 4
-            };
+    {     //X,Y
+            { 2,  2 }, //Point 1
+            { -2,  2}, // Point 2
+            { -2, -2}, // Point 3
+            { 2, -2}, // Point 4
+    };
 
     public static int[][][] defaultAsteroidShape =
             {

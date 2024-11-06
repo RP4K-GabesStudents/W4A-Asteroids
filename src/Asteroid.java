@@ -6,6 +6,9 @@ public class Asteroid extends VectorSprite {
 
     static Random rng = new Random();
 
+
+
+
     public Asteroid()
     {
         super(rng.nextInt(-200,200), rng.nextInt(-200,200));
@@ -34,7 +37,12 @@ public class Asteroid extends VectorSprite {
 
     @Override
     MeshComponent GenerateMesh() {
-        return new MeshComponent(StaticUtilties.defaultAsteroidShape
-                [rng.nextInt(StaticUtilties.defaultAsteroidShape.length)], Color.RED);
+        return new MeshComponent(StaticUtilties.defaultAsteroidShape[rng.nextInt(StaticUtilties.defaultAsteroidShape.length)], Color.RED, 4);
+    }
+
+
+    public void Break()
+    {
+
     }
 }

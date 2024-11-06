@@ -8,7 +8,9 @@ public class MeshComponent
     final Polygon polygon;
     final Polygon start;
 
-    public MeshComponent(int [][] shipShape, Color color)
+    float scale;
+
+    public MeshComponent(int [][] shipShape, Color color, float scale)
     {
         int [] x = new int[shipShape.length];
         int [] y = new int[shipShape.length];
@@ -24,6 +26,7 @@ public class MeshComponent
         polygon = new Polygon(x, y, shipShape.length);
         start = new Polygon(x,y, shipShape.length);
 
+        this.scale = scale;
     }
 
     void render(Graphics g)
@@ -37,8 +40,8 @@ public class MeshComponent
         polygon.invalidate();
 
         for (int i = 0; i < start.npoints; i++) {
-            polygon.xpoints[i] = (int)  ((Math.cos(angle) * start.xpoints[i] - Math.sin(angle) * start.ypoints[i]) + x);
-            polygon.ypoints[i] = (int)  ((Math.sin(angle) * start.xpoints[i] + Math.cos(angle) * start.ypoints[i]) + y);
+            polygon.xpoints[i] = (int)  ((Math.cos(angle) * start.xpoints[i] * scale - Math.sin(angle) * start.ypoints[i] * scale) + x);
+            polygon.ypoints[i] = (int)  ((Math.sin(angle) * start.xpoints[i] * scale + Math.cos(angle) * start.ypoints[i] * scale) + y);
         }
     }
 }

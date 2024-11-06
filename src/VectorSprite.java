@@ -19,10 +19,14 @@ public abstract class VectorSprite
     double baseDrag = 0.98; //0.98% of speed
     MeshComponent meshComponent;
 
-    public VectorSprite(double x, double y)
+    float scale;
+
+    public VectorSprite(double x, double y, float scale)
     {
         this.x = x;
         this.y = y;
+
+        this.scale = scale;
 
         angularVelocity = Math.toRadians(angularVelocity);
         meshComponent = GenerateMesh();

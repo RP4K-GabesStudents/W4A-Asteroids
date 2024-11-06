@@ -13,7 +13,7 @@ enum EGameState
 
 public class Game extends JFrame implements KeyListener
 {
-    public static final int WIDTH = 640, HEIGHT = 420;
+    public static final int WIDTH = 640, HEIGHT = 420; //1920x1080 is "full screen" on most devices
     Window window;
 
     Player player;
@@ -133,6 +133,16 @@ public class Game extends JFrame implements KeyListener
         {
             Projectile current = projectiles.get(i);
             current.update(g);
+
+            for(int j = asteroids.size() - 1; j >= 0; --j)
+            {
+                if(current.collision(asteroids.get(j)))
+                {
+                    asteroids.remove(j);
+                    projectiles.remove(i);
+                    break;
+                }
+            }
         }
 
     }
