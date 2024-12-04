@@ -1,5 +1,6 @@
 package Core;
 
+import Powerups.PowerUp;
 import Weapons.Projectile;
 
 import javax.swing.*;
@@ -31,6 +32,8 @@ public class Game extends JFrame implements KeyListener
 
     static ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
    public static ArrayList<Projectile> projectiles = new ArrayList<>();
+
+   private ArrayList<PowerUp> powerUps = new ArrayList<>();
 
     EGameState currentGameState = EGameState.MainMenu;
 
@@ -159,11 +162,21 @@ public class Game extends JFrame implements KeyListener
             {
                 if(current.collision(asteroids.get(j)))
                 {
+                    SpawnPowerup((float)asteroids.get(j).x, (float)asteroids.get(j).y);
+
                     asteroids.get(j).Break();
                     asteroids.remove(j);
                     projectiles.remove(i);
                     break;
                 }
+            }
+        }
+
+        for(int i = powerUps.size() -1; i >=0; --i) {
+            PowerUp current = powerUps.get(i);
+            current.update(g);
+            if (current.collision(player)) {
+                powerUps.remove(i);
             }
         }
 
@@ -204,6 +217,14 @@ public class Game extends JFrame implements KeyListener
             //currentAsteroidSpawnTime = Math.max(0,reset - spawnTimeAcceleration);
             currentAsteroidSpawnTime = spawnTimeAcceleration;
             spawnTimeAcceleration += 0.05f;
+        }
+    }
+
+    void SpawnPowerup(float x, float y)
+    {
+        if(Asteroid.rng.nextFloat(1) < 0.2f)
+        {
+            powerUps.add(new PowerUp(x,y));
         }
     }
 
