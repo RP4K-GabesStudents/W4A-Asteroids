@@ -1,6 +1,8 @@
 package Core;
 
 import Weapons.Projectile;
+import Weapons.ProjectileWeapon;
+import Weapons.Weapon;
 
 import java.awt.*;
 
@@ -13,12 +15,17 @@ public class Player extends VectorSprite
     boolean wantsToAccelerate;
     boolean wantsToDecelerate;
 
+     Weapon currentWeapon;
+
+
     //TODO: Homework - make the character shoot projectiles
 
     public Player(double x, double y, float scale, double acceleration, double deceleration) {
         super(x, y, scale);
         this.acceleration = acceleration;
         this.deceleration = deceleration;
+
+        currentWeapon = new ProjectileWeapon(true, 0.3f, this, new Projectile(0,0,0,0,2), 12, 45);
     }
 
     @Override

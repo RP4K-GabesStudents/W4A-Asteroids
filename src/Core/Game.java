@@ -25,8 +25,12 @@ public class Game extends JFrame implements KeyListener
     private static long previousTime;
     public static double deltaTime;
 
+    float currentAsteroidSpawnTime;
+    float endAsteroidSpawnTime = 5;
+    float spawnTimeAcceleration;
+
     static ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
-    static ArrayList<Projectile> projectiles = new ArrayList<>();
+   public static ArrayList<Projectile> projectiles = new ArrayList<>();
 
     EGameState currentGameState = EGameState.MainMenu;
 
@@ -77,7 +81,7 @@ public class Game extends JFrame implements KeyListener
 
         if(e.getKeyCode() == KeyEvent.VK_SPACE)
         {
-            player.Shoot();
+            player.currentWeapon.beginAttack();
         }
 
     }
@@ -94,6 +98,11 @@ public class Game extends JFrame implements KeyListener
 
         if(e.getKeyCode() == KeyEvent.VK_S){
             player.wantsToDecelerate = false;
+        }
+
+        if(e.getKeyCode() == KeyEvent.VK_SPACE)
+        {
+            player.currentWeapon.endAttack();
         }
 
     }
@@ -117,10 +126,13 @@ public class Game extends JFrame implements KeyListener
     void UpdateGame(Graphics g)
     {
         player.update(g);
+        player.currentWeapon.update();
 
         long currentTime = System.currentTimeMillis();
         deltaTime = (currentTime - previousTime)/1000.0;
         previousTime = currentTime;
+
+        SpawnAsteroid();
 
         for(int i = asteroids.size() - 1; i >= 0 ; --i)
         {
@@ -137,6 +149,11 @@ public class Game extends JFrame implements KeyListener
         {
             Projectile current = projectiles.get(i);
             current.update(g);
+
+            if(current.IsDead()) {
+                projectiles.remove(i);
+                continue;
+            }
 
             for(int j = asteroids.size() - 1; j >= 0; --j)
             {
@@ -178,6 +195,17 @@ public class Game extends JFrame implements KeyListener
         currentGameState = EGameState.MainMenu;
     }
 
+    void SpawnAsteroid(){
+        currentAsteroidSpawnTime += deltaTime;
+
+        if(currentAsteroidSpawnTime >= endAsteroidSpawnTime)
+        {
+            asteroids.add(new Asteroid(Asteroid.rng.nextFloat(1,2)));
+            //currentAsteroidSpawnTime = Math.max(0,reset - spawnTimeAcceleration);
+            currentAsteroidSpawnTime = spawnTimeAcceleration;
+            spawnTimeAcceleration += 0.05f;
+        }
+    }
 
 }
 

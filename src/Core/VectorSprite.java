@@ -6,12 +6,12 @@ public abstract class VectorSprite
 {
     protected double   xspeed;
     protected double   yspeed;
-    protected  double   speed = 5;
+    public double   speed = 5;
 
-    protected double angle;
+    public double angle;
 
-    protected double x;
-    protected double y;
+    public double x;
+    public double y;
 
     protected float radius = 15;
 
@@ -21,7 +21,7 @@ public abstract class VectorSprite
     protected double baseDrag = 0.98; //0.98% of speed
     protected MeshComponent meshComponent;
 
-    protected float scale;
+    public float scale;
 
     public VectorSprite(double x, double y, float scale)
     {
